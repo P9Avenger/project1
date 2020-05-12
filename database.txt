@@ -1,0 +1,33 @@
+CREATE TABLE "Category" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "name" TEXT NOT NULL,
+  "description" TEXT NOT NULL
+);
+
+CREATE TABLE "Manufacturer" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "name" TEXT NOT NULL,
+  "description" TEXT NOT NULL
+);
+
+CREATE TABLE "Product" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "name" TEXT NOT NULL,
+  "description" TEXT NOT NULL,
+  "manufacturer" INTEGER NOT NULL REFERENCES "Manufacturer" ("id") ON DELETE CASCADE,
+  "category" INTEGER NOT NULL REFERENCES "Category" ("id") ON DELETE CASCADE
+);
+
+CREATE INDEX "idx_product__category" ON "Product" ("category");
+
+CREATE INDEX "idx_product__manufacturer" ON "Product" ("manufacturer");
+
+CREATE TABLE "Specification" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "product" INTEGER NOT NULL REFERENCES "Product" ("id") ON DELETE CASCADE,
+  "name" TEXT NOT NULL,
+  "value" TEXT NOT NULL,
+  "description" TEXT NOT NULL
+);
+
+CREATE INDEX "idx_specification__product" ON "Specification" ("product")
