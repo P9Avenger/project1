@@ -5,6 +5,10 @@
     <title>database view</title>
 </head>
 <body>
+<div><form action="http://localhost:8080/">
+    <input type="submit" value="home">
+</form></div>
+<br>
 <table cellspacing="15" border="2">
     <tr>
         {% for h in tableheaders %}
@@ -16,7 +20,9 @@
         {% for p in item[:-1] %}
         <th>{{p}}</th>
         {% endfor %}
-        <th><a href={{item[-1]}}>delete</a></th>
+        <th><form action="{{item[-1]}}">
+            <input type="submit" value="delete">
+        </form></th>
     </tr>
     {% endfor %}
 

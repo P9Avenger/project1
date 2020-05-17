@@ -227,25 +227,25 @@ def delete(type, id):
     id = int(id)
     with db_session:
         if type == "product":
+            id = min(list(select(p.id for p in Product if p.id == id)))
             id_l = list(select(p.id for p in Product))
             if len(id_l) > 0 and (id in id_l):
                 Product[id].delete()
             return redirect("/product_list")
 
         elif type == "manufacturer":
-            id = min(list(select(m for m in Product if m.id == id)))
+            id = min(list(select(m.id for m in Manufacturer if m.id == id)))
             id_l = list(select(m.id for m in Manufacturer))
             if len(id_l) > 0 and (id in id_l):
                 Manufacturer[id].delete()
             return redirect("/manufacturer_list")
 
         elif type == "category":
-            id = min(list(select(c for c in Category if c.id == id)))
+            id = min(list(select(c.id for c in Category if c.id == id)))
             id_l = list(select(c.id for c in Category))
             if len(id_l) > 0 and (id in id_l):
                 Category[id].delete()
             return redirect("/category_list")
-
 
 
 if __name__ == '__main__':
